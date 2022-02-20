@@ -1,0 +1,22 @@
+{
+  "name": "zombiefactory",
+  "version": "1.0.0",
+  "description": "crypto game",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tztokln/ZombieFactory.git"
+  },
+  "keywords": [
+    "crypto"
+  ],
+  "author": "Ellen Berg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tztokln/ZombieFactory/issues"
+  },
+  "homepage": "https://github.com/tztokln/ZombieFactory#readme"
+}
