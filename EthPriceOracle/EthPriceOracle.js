@@ -13,7 +13,42 @@ async function getOracleContract (web3js) {
   return new web3js.eth.Contract(OracleJSON.abi, OracleJSON.networks[networkId].address)
 }
 
-// Start here
 async function filterEvents (oracleContract, web3js) {
+  oracleContract.events.GetLatestEthPriceEvent(async (err, event) => {
+    if (err) {
+      console.error('Error on event', err)
+      return
+    }
+    await addRequestToQueue(event)
+  })
 
+  oracleContract.events.SetLatestEthPriceEvent(async (err, event) => {
+    if (err) console.error('Error on event', err)
+    // Do something
+  })
+}
+
+async function addRequestToQueue (event) {
+  const callerAddress = event.returnValues.callerAddress
+  const id = event.returnValues.id
+  pendingRequests.push({ callerAddress, id })
+}
+
+async function processQueue (oracleContract, ownerAddress) {
+  let processedRequests = 0
+  while (pendingRequests.length > 0 && processedRequests < CHUNK_SIZE) {
+    const req = pendingRequests.shift()
+    await processRequest(oracleContract, ownerAddress, req.id, req.callerAddress)
+    processedRequests++
+  }
+}
+
+async function processRequest (oracleContract, ownerAddress, id, callerAddress) {
+  let retries = 0
+  while (retries < MAX_RETRIES) {
+    try {
+      // Start here
+    } catch (error) {
+    }
+  }
 }
